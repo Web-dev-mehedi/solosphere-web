@@ -4,8 +4,11 @@ import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../components/hooks/axios-intense/axiosSecure";
 
 const MyPostedJobs = () => {
+  // 
+  const axiosSecure = useAxiosSecure()
   const { user } = useContext(AuthContext);
   //
   const [addedJobs, setAddedJobs] = useState([]);
@@ -13,8 +16,8 @@ const MyPostedJobs = () => {
 
   // fetch specific user added jobs by axios
   const fetchAllJobs = async () => {
-    const { data } = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/my-posted-jobs/${user?.email}`
+    const { data } = await axiosSecure.get(
+      `/my-posted-jobs/${user?.email}`
     );
     setAddedJobs(data);
   };
@@ -26,8 +29,8 @@ const MyPostedJobs = () => {
   // handle delete
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_BASE_URL}/job/${id}`
+      const { data } = await axiosSecure.delete(
+        `/job/${id}`
       );
        toast.success("item deleted succesfully")
       console.log(data);

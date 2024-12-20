@@ -34,7 +34,7 @@ const AddJob = () => {
       min_price,
       max_price,
       description,
-      bit_count: 0,
+      bid_count: 0,
     };
     console.log(form_data, user);
 

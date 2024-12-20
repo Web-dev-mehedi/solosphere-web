@@ -1,10 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { Link } from "react-router-dom"
-import {format} from "date-fns"
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 const JobCard = ({ job }) => {
-
   const {
     _id,
     deadline,
@@ -13,10 +12,9 @@ const JobCard = ({ job }) => {
     min_price,
     max_price,
     description,
-    bit_count
+    bid_count,
   } = job || {};
-
-  // 
+  //
   return (
     <Link
       to={`/job/${_id}`}
@@ -24,10 +22,20 @@ const JobCard = ({ job }) => {
     >
       <div className="flex items-center justify-between">
         <span className="text-xs font-light text-gray-800 ">
-          Deadline: {format(new Date(deadline),'P')}
+          Deadline: {format(new Date(deadline), "P")}
         </span>
-        <span className="px-3 py-1 text-[8px] text-blue-800 uppercase bg-blue-200 rounded-full ">
-          {category}
+     
+          <span
+            className={`${category === "Web Development" &&
+              "text-blue-500 bg-blue-100/60"
+            } ${category === "Digital Marketing" &&
+              "text-red-500 bg-red-100/60"
+            } ${category === "Graphics Design" &&
+              "text-green-500 bg-green-100/60"
+            } px-3 py-1 text-xs  rounded-full`}
+          >
+            {category}
+         
         </span>
       </div>
 
@@ -37,12 +45,14 @@ const JobCard = ({ job }) => {
         </h1>
 
         <p className="mt-2 text-sm text-gray-600 ">
-          {description?.substring(0,60)}...
+          {description?.substring(0, 60)}...
         </p>
         <p className="mt-2 text-sm font-bold text-gray-600 ">
-          Range: ${ min_price} - ${max_price}
+          Range: ${min_price} - ${max_price}
         </p>
-        <p className="mt-2 text-sm font-bold text-gray-600 ">Total Bids: {bit_count}</p>
+        <p className="mt-2 text-sm font-bold text-gray-600 ">
+          Total Bids: {bid_count}
+        </p>
       </div>
     </Link>
   );
